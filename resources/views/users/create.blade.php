@@ -15,22 +15,29 @@
     @endif
 
 
-<form method="POST" action="{{route('users.store')}}">
+
+{!! Form::open(['route' => 'users.store', 'method' => 'post']) !!}
 
     {!! csrf_field() !!}
 
     <div class="form-group">
-         <label for="title">Username</label>
-            <input type="text" name="title" class="form-control" id="" placeholder="Enter your name">
+         <label for="title">name</label>
+            <input type="text" name="name" class="form-control" id="" placeholder="Enter your name">
     </div>
     <div class="form-group">
-        <label for= "description">Description</label>
-            <input type="text" name="description" class="form-control" id="" placeholder="Enter Description">
+        <label for= "email">email</label>
+            <input type="text" name="email" class="form-control" id="" placeholder="Enter email">
+    </div>
+   
+    <div class="form-group">
+        <label for= "">password</label>
+            <!-- <input type="password" name="password" id="password" maxlength="6" placeholder="Enter password"> -->
+            {!! Form::password('password', ['class' => 'awesome']) !!}
     </div>
     <div>
     <button type="submit">Create </button>
     </div>
 
-</form>
+{!! Form::close() !!}
 </body>
 </html>

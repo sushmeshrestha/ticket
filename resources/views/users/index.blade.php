@@ -9,25 +9,30 @@
             <a href="{{ route('users.create')}}" class="btn btn-primary pull-left" >Create User</a>
     </div>
 </div>
-
+    
         <table>
             <thead>
                 <tr role="row">
-                    <th>Sn.</th>
-                    <th>UserName</th>
-                    <th>Description</th>
+                    <th>Name</th>
+                    <th>Email</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($users as $key => $user)
                 <tr>
-                <td>{{ $key+1 }}</td>
-                <td>{{ $user->UserName }}</td>
-                <td>{{ $user->Description}}</td>
-                
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email}}</td>
+                <td>
+                <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}" method="PUT">Edit</a>
+                    <form action="{{ route('users.destroy', $user->id)}}" method="POST">
+                     @csrf
+                    {{ method_field('DELETE') }}
+                     <input type="submit" value="Delete" onclick="return confirm('Are you sure')" class="btn btn-danger"/>
+                     </form>
+                </td>
                 </tr>
-                        @endforeach
+            @endforeach
             </tbody>
         </table>
 </body>

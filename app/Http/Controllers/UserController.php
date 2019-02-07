@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
@@ -37,17 +37,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request = request()->validate([
-            'UserName' => ['required', 'min:3'],
-            'Description' => ['required', 'min:3'],
-        ]);
-        $user = new User([
-            'UserName' => $request->get('UserName'),
-            'Description'=> $request->get('Description'),
-          ]);
-          $user->save();
+    //    dd($request->all());
+       $password=Hash::make($request->password);
+       $attribute=[
+        'name'=>$request->name,
+        'email'=>$request->email,
+        'password'=>$password,
+
+     ];
+        User::create($attribute);  
         return redirect()->route('users.index');
-    }
+      }
+      
+        
 
     /**
      * Display the specified resource.
@@ -83,16 +85,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $password=Hash::make($request->password);
         $request->validate([
-            'UserName' => 'required', 
-            'Description' => 'required',
-
+            'name' => 'required', 
+            'email' => 'required',
+            'password' => 'required',
+            $attribute=[
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'password'=>$password,
+        
+             ]
         ]);
-
         $user = User::findorfail($id);
-        $user->Username =$request->get('Username');
-        $user->Discription =$request->get('Description');
-        $user->save();
+        $user->update($attribute);
+
         return redirect('/users');
     }
 
