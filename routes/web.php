@@ -1,4 +1,5 @@
 <?php
+use App\Notifications\UserMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +12,10 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function ()  {
+    $user = App\User::first();
+    $user->notify(new UserMail);
+    
     return view('welcome');
 });
 

@@ -19,25 +19,49 @@
 {!! Form::open(['route' => 'users.store', 'method' => 'post']) !!}
 
     {!! csrf_field() !!}
-
+    <div class="container">
     <div class="form-group">
-         <label for="title">name</label>
-            <input type="text" name="name" class="form-control" id="" placeholder="Enter your name">
+         <label for="uname"><b>Username</label>
+            <input type="text" name="name" class="form-control" id="" placeholder="Enter name" required>
     </div>
     <div class="form-group">
-        <label for= "email">email</label>
-            <input type="text" name="email" class="form-control" id="" placeholder="Enter email">
+        <label for= "email"><b>Email</label>
+            <input type="text" name="email" class="form-control" id="" placeholder="Enter your email" required>
     </div>
    
     <div class="form-group">
-        <label for= "">password</label>
-            <!-- <input type="password" name="password" id="password" maxlength="6" placeholder="Enter password"> -->
-            {!! Form::password('password', ['class' => 'awesome']) !!}
+        <label for= "psw"><b>Password</label>
+            <input type="password" name="psw" id="password" maxlength="8" placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+            
+    </div>
+    <div class="form-group">
+        <label for="psw"><b>Confirm Password</b></label>
+            <input type="password" id="password_confirmation" maxlength="8" placeholder="Confirm Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
     </div>
     <div>
-    <button type="submit">Create </button>
+    <button type="submit" class="pure-button pure-button-primary">Confirm</button>
+    </div>
+   
     </div>
 
 {!! Form::close() !!}
+<script>
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+
 </body>
 </html>
