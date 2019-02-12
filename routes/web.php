@@ -1,5 +1,8 @@
 <?php
 use App\Notifications\UserMail;
+use App\Mail\SendMail;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,13 +15,13 @@ use App\Notifications\UserMail;
 |
 */
 
-Route::get('/', function ()  {
+Route::get('/', function () {
     $user = App\User::first();
     $user->notify(new UserMail);
-    
     return view('welcome');
-});
+})->middleware('verified');
 
-Auth::routes();
+Auth::routes(['verify'=> true]);
 Route::resource('users', 'UserController');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/email', 'HomeController@email')->name('sendEmail');

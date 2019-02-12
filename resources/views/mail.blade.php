@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <title>DOC</title>
+    <title>Welcome Email</title>
 </head>
 
-<body> 
-<h1> welcome to the Email System </h1>
-
+<body>
+<h2>Welcome to the site {{$user['name']}}</h2>
+<br/>
+Your registered email-id is {{$user['email']}}
 </body>
 
 </html>

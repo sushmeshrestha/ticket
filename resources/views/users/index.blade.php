@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<body>
+@extends('layouts.app')
+
+@section('content')
 <div class="row">
             <h1>
                 List of Users
@@ -43,7 +44,7 @@
                 <td>{{ $user->email}}</td>
                 
                 <td>
-                <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}" method="PUT">Edit</a>
+                <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}" method="PUT"><b>Edit</a>
                     <form action="{{ route('users.destroy', $user->id)}}" method="POST">
                      @csrf
                     {{ method_field('DELETE') }}
@@ -55,6 +56,4 @@
             @endforeach
             </tbody>
         </table>
-        
-</body>
-</html>
+@stop

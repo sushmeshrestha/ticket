@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\UserMail;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 
 
 class UserMail extends Notification
@@ -35,7 +36,7 @@ class UserMail extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -52,7 +53,7 @@ class UserMail extends Notification
                     ->action('Notification Action', 'https://www.gmail.com/')
                     ->line('Thank you for using our application!');
     }
-
+    
     /**
      * Get the array representation of the notification.
      *
@@ -62,7 +63,7 @@ class UserMail extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            
         ];
     }
 }

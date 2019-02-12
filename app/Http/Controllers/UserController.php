@@ -47,6 +47,7 @@ class UserController extends Controller
         'password'=>$password,
 
      ];
+        
         User::create($attribute);  
         return redirect()->route('users.index');
       }

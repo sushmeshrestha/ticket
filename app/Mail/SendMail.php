@@ -2,10 +2,13 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
+
 
 class SendMail extends Mailable
 {
@@ -16,12 +19,12 @@ class SendMail extends Mailable
      *
      * @return void
      */
-    public $send;
+    public $user;
 
 
-    public function __construct(send $send)
+    public function __construct()
     {
-        $this->send= $send;
+     
     }
 
     /**
@@ -31,6 +34,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail');                                       
+        return $this->view('mail');
+    }                                     
     }
-}
+
