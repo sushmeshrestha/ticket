@@ -8,7 +8,7 @@ use App\Mail\SendMail;
 use App\Notifications\UserMail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notifications;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -56,7 +56,7 @@ class UserController extends Controller
 
 
         Mail::to($user)->send(new SendMail($user));
-        //Notification::to($user)->send(new UserMail($user));
+        Notification::to($user)->send(new UserMail($user));
 
           return redirect()->route('users.index');
 

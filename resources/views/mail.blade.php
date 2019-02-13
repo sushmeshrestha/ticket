@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hello </title>
-</head>
-
+<h1>Hi,</h1>
+<p>Sending Mail Laravel.</p>
 <body>
-<h2>Welcome to the site</h2>
-<br/>
-Your registered email-id is </body>
-
-</html>
+<a href="https://laravel.com/docs">Documentation</a>
+<p> check the Laravel Documentation for more information</p>
+</body>

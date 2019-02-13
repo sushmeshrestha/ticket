@@ -31,6 +31,7 @@ class HomeController extends Controller
 
     public function email()
     {
-
+        Mail::to(Auth::user()->email)->send(new SendMail);
+        return redirect('/home');
     }
 }
