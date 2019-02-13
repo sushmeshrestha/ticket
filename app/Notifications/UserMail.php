@@ -12,11 +12,11 @@ use Illuminate\Notifications\Messages\SlackMessage;
 
 class UserMail extends Notification
 {
-    
+
     use Queueable;
-   
+
     protected $user;
-    
+
 
     /**
      * Create a new notification instance.
@@ -25,7 +25,7 @@ class UserMail extends Notification
      */
     public function __construct()
     {
-      
+
     }
 
     /**
@@ -47,13 +47,13 @@ class UserMail extends Notification
      */
     public function toMail($notifiable)
     {
-       
+
         return (new MailMessage)
                     ->greeting('Hello')
                     ->action('Notification Action', 'https://www.gmail.com/')
                     ->line('Thank you for using our application!');
     }
-    
+
     /**
      * Get the array representation of the notification.
      *
@@ -63,7 +63,7 @@ class UserMail extends Notification
     public function toArray($notifiable)
     {
         return [
-            
+
         ];
     }
 }

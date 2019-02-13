@@ -29,9 +29,11 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function email()
+    public function mail()
     {
-        Mail::to(Auth::user()->email)->send(new SendMail);
-        return redirect('/home');
+        $name = 'Sushmi';
+   Mail::to('sushmi.shrestha25@gmai.com')->send(new SendMailable($name));
+   
+   return 'Email was sent';
     }
 }

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Mail\SendMail;
 use Illuminate\Support\Facades\Hash;
 use Notifications;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
     /**
@@ -17,8 +20,8 @@ class UserController extends Controller
     {
         $users = User::all();
         return view('users.index', compact('users'));
-    }    
-    
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,7 +42,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
     //    dd($request->all());
-      
+
        $password=Hash::make($request->password);
        $attribute=[
         'name'=>$request->name,
@@ -47,12 +50,17 @@ class UserController extends Controller
         'password'=>$password,
 
      ];
-        
-        User::create($attribute);  
-        return redirect()->route('users.index');
+
+     $user= User::create($attribute);
+
+        // Mail::to($user)->send(new SendMail($user));
+        Mail::to($user)->send(new SendMail($user));
+
+          return redirect()->route('users.index');
+
       }
-      
-        
+
+
 
     /**
      * Display the specified resource.
@@ -90,14 +98,14 @@ class UserController extends Controller
     {
         $password=Hash::make($request->password);
         $request->validate([
-            'name' => 'required', 
+            'name' => 'required',
             'email' => 'required',
             'password' => 'required',
             $attribute=[
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'password'=>$password,
-        
+
              ]
         ]);
         $user = User::findorfail($id);
