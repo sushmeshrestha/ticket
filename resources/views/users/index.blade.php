@@ -1,11 +1,10 @@
-@extends('layouts.app')
-
-@section('content')
+<!DOCTYPE html>
+<body>
 <div class="row">
             <h1>
                 List of Users
             </h1>
-    
+
     <div>
             <a href="{{ route('users.create')}}" class="btn btn-primary pull-left" >Create User</a>
     </div>
@@ -14,13 +13,13 @@
     <style>
         table {
         border-collapse: collapse;
-        border-spacing: 0;
+        border-spacing: 1;
         width: 100%;
-        border: 1px solid #ddd;
+        border: 5px solid #ddd;
         }
 
         th, td {
-        text-align: left;
+        text-align: center;
         padding: 16px;
         }
 
@@ -28,7 +27,7 @@
         background-color: #f2f2f2
         }
     </style>
-    
+
         <table>
             <thead>
                 <tr role="row">
@@ -42,7 +41,7 @@
                 <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email}}</td>
-                
+
                 <td>
                 <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}" method="PUT"><b>Edit</a>
                     <form action="{{ route('users.destroy', $user->id)}}" method="POST">
@@ -50,10 +49,11 @@
                     {{ method_field('DELETE') }}
                      <input type="submit" value="Delete" onclick="return confirm('Are you sure')" class="btn btn-danger"/>
                      </form>
-                    
+
                 </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-@stop
+    </body>
+    </html>

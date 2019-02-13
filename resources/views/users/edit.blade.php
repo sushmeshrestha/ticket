@@ -1,6 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
+<!DOCTYPE html>
+<body>
     <section class="content-header">
     <h1> Update Page </h1>
     </section>
@@ -28,7 +27,7 @@
                                     <label for= "">Password</label>
                                     <input type="password" id="password" maxlength="8" placeholder="Enter Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                                    
+
                                 </div>
                                 <div class="form-group">
                                     <label for= "">Confirm Password</label>
@@ -44,6 +43,5 @@
                 </div>
             </div>
     </section>
- 
-
-@stop
+</body>
+</html>

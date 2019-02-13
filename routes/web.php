@@ -16,9 +16,8 @@ use App\Mail\SendMail;
 */
 
 Route::get('/', function () {
-    $user = App\User::find(2);
+    $user = App\User::find(1);
     $user->notify(new UserMail);
-   // Notification::route('mail', 'taylor@example.com')
     return view('welcome');
 })->middleware('verified');
 

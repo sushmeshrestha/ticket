@@ -5,7 +5,6 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\UserMail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 
@@ -13,7 +12,7 @@ use Illuminate\Notifications\Messages\SlackMessage;
 class UserMail extends Notification
 {
 
-    use Queueable;
+    //use Queueable;
 
     protected $user;
 
@@ -26,6 +25,7 @@ class UserMail extends Notification
     public function __construct()
     {
 
+
     }
 
     /**
@@ -36,7 +36,7 @@ class UserMail extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['mail'];
     }
 
     /**
@@ -47,11 +47,7 @@ class UserMail extends Notification
      */
     public function toMail($notifiable)
     {
-
-        return (new MailMessage)
-                    ->greeting('Hello')
-                    ->action('Notification Action', 'https://www.gmail.com/')
-                    ->line('Thank you for using our application!');
+        return (new MailMessage)->view('mail');
     }
 
     /**

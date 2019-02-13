@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Mail\SendMail;
+use App\Notifications\UserMail;
 use Illuminate\Support\Facades\Hash;
-use Notifications;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notifications;
 
 class UserController extends Controller
 {
@@ -53,8 +54,9 @@ class UserController extends Controller
 
      $user= User::create($attribute);
 
-        // Mail::to($user)->send(new SendMail($user));
+
         Mail::to($user)->send(new SendMail($user));
+        //Notification::to($user)->send(new UserMail($user));
 
           return redirect()->route('users.index');
 
@@ -96,22 +98,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+try{
         $password=Hash::make($request->password);
-        $request->validate([
+        $attribute=[
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$password,
+
+        ];
+        /* $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            $attribute=[
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'password'=>$password,
 
-             ]
-        ]);
+        ]); */
         $user = User::findorfail($id);
+        $user->notify(new UserMail);
+        // dd('asdasd');
         $user->update($attribute);
 
         return redirect('/users');
+    }catch( \Exception $e){
+        dd($e);
+    }
     }
 
     /**

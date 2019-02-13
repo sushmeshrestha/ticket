@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome Email</title>
+    <title>Hello </title>
 </head>
 
 <body>
-<h2>Welcome to the site {{$user->name}}</h2>
+<h2>Welcome to the site</h2>
 <br/>
-Your registered email-id is {{$user->email}}
-</body>
+Your registered email-id is </body>
 
 </html>
