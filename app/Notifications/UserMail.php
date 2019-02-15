@@ -47,15 +47,15 @@ class UserMail extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+         return (new MailMessage)
                     ->greeting('hello')
                     ->line('you are notified')
-                    ->action('notification', 'https://mailtrap.io/inboxes/543348/messages/1140740908');
+                    ->action('Notification', 'https://mailtrap.io/inboxes/543348/messages/1140740908');
     }
 
     /**
      * Get the array representation of the notification.
-     *
+     *s
      * @param  mixed  $notifiable
      * @return array
      */

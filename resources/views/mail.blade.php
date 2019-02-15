@@ -1,6 +1,12 @@
+
 <h1>Hi,</h1>
-<p>Sending Mail Laravel.</p>
+<p>Sending Mail and Notification Laravel.</p>
 <body>
-<a href="https://laravel.com/docs">Documentation</a>
-<p> check the Laravel Documentation for more information</p>
+
+<p> Here is the result</p>
+
+<a href="http://127.0.0.1:8000/users">Show Username</a>
+
+
 </body>
+

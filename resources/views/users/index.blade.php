@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<body>
+@extends('layouts.app')
+
+@section('content')
 <div class="row">
             <h1>
                 List of Users
@@ -10,23 +11,6 @@
     </div>
 </div>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        table {
-        border-collapse: collapse;
-        border-spacing: 1;
-        width: 100%;
-        border: 5px solid #ddd;
-        }
-
-        th, td {
-        text-align: center;
-        padding: 16px;
-        }
-
-        tr:nth-child(even) {
-        background-color: #f2f2f2
-        }
-    </style>
 
         <table>
             <thead>
@@ -55,5 +39,4 @@
             @endforeach
             </tbody>
         </table>
-    </body>
-    </html>
+@endsection

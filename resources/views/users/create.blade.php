@@ -24,31 +24,44 @@
     <div class="form-group row">
          <label for="uname"><b>Username</label>
         <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" id="" placeholder="Enter name" required>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for= "email"><b>Email</label>
-        <div class="col-sm-10">
-            <input type="text" name="email" class="form-control" id="" placeholder="Enter your email" required>
+            <label for="email">{{ __('E-Mail Address') }}</label>
+
+            <div class="col-md-6">
+                <input id="email" type="email" placeholder="Enter your Email-Id" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+
+                @if ($errors->has('email'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
         </div>
-    </div>
 
     <div class="form-group row">
-        <label for= "psw"><b>Password</label>
+            <label for="password" >{{ __('Password') }}</label>
+
         <div class="col-sm-10">
-            <input type="password" name="psw" id="password" maxlength="8" placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        </div>
+                <input id="password" type="password" placeholder="Enter your password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                @if ($errors->has('password'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </div>
 
     </div>
     <div class="form-group row">
-        <label for="psw"><b>Confirm Password</b></label>
+            <label for="password-confirm">{{ __('Confirm Password') }}</label>
         <div class="col-sm-10">
-            <input type="password" id="password_confirmation" maxlength="8" placeholder="Confirm Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        </div>
+                <input id="password-confirm" type="password" placeholder="Confirm your password" class="form-control" name="password_confirmation" required>
+            </div>
     </div>
+
     <div>
     <button type="submit" class="pure-button pure-button-primary">Confirm</button>
     </div>

@@ -8,10 +8,14 @@ use App\Mail\SendMail;
 use App\Notifications\UserMail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -54,9 +58,8 @@ class UserController extends Controller
 
      $user= User::create($attribute);
 
-
         Mail::to($user)->send(new SendMail($user));
-        Notification::to($user)->send(new UserMail($user));
+        // Notification::to($user)->send(new UserMail($user));
 
           return redirect()->route('users.index');
 
@@ -72,6 +75,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+
         return view('users.index');
     }
 

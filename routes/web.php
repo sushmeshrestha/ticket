@@ -19,9 +19,10 @@ Route::get('/', function () {
     $user = App\User::find(2);
     $user->notify(new UserMail);
     return view('welcome');
-})->middleware('verified');
+});
 
-Auth::routes(['verify'=> true]);
+Auth::routes();
 Route::resource('users', 'UserController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/email', 'HomeController@email')->name('sendEmail');
+Route::get('logout', 'Auth\LoginController@logout');

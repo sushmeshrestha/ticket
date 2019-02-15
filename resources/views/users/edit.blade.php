@@ -23,17 +23,6 @@
                                     <label for= "email">Email</label>
                                     <input type="text" name="email" class="form-control"  placeholder="Enter your email"  value="{{ $user->email }}">
                                 </div>
-                                <div class="form-group">
-                                    <label for= "">Password</label>
-                                    <input type="password" id="password" maxlength="8" placeholder="Enter Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-
-                                </div>
-                                <div class="form-group">
-                                    <label for= "">Confirm Password</label>
-                                    <input type="password" id="password_confirmation" maxlength="8" placeholder="Confirm Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                                </div>
                                 <div>
                                     <button class="btn btn-primary" type="submit">Update</button>
                                 </div>
