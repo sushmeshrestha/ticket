@@ -3,16 +3,14 @@
 @section('content')
 <section class="content-header">
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm-4">
             <div class="row">
-                    <div class="col-sm-1"></div>
                         <h1>
-                            Users Lists
+                            List of Roles
                         </h1>
-                    </div>
             </div>
             <div class="col-md-2 text-center">
-                <a href="{{ route('users.create')}}" button id="singlebutton" name="singlebutton" class="btn btn-primary center-block" >Create User</a>
+                <a href="{{ route('roles.create')}}" button id="singlebutton" name="singlebutton" class="btn btn-primary center-block" >Create Role</a>
             </div>
         </div>
 </section>
@@ -23,8 +21,8 @@
                 <div class="box-body">
                     <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
-                            <div class="col-sm-8"></div>
-                            <div class="col-sm-8"></div>
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
@@ -35,23 +33,23 @@
                                         <tr role="row">
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>User</th>
-                                            <th>Admin</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($users as $key => $user)
+
+                                    @foreach($roles as $role)
+                                    {{-- @foreach($roles->$key () as $role) --}}
+
                                         <tr>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email}}</td>
+                                        <td>{{ $role->name }}</td>
+                                        <td>{{ $role->email}}</td>
                                         <td><input type="checkbox" {{$user->hasRole('User') ? 'checked' : '' }} name="role_user"></td>
                                         <td><input type="checkbox" {{$user->hasRole('Admin') ? 'checked' : '' }} name="admin"></td>
 
-
                                         <td>
-                                        <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}" method="PUT"><b>Edit</a>
-                                            <form action="{{ route('users.destroy', $user->id)}}" method="POST">
+                                        <a class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}" method="PUT"><b>Edit</a>
+                                            <form action="{{ route('roles.destroy', $role->id)}}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
                                             <input type="submit" value="Delete" onclick="return confirm('Are you sure')" class="btn btn-danger"/>

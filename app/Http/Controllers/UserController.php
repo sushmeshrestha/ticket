@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
+use App\Permission;
 use App\Mail\SendMail;
 use App\Notifications\UserMail;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
+
+
     public function __construct(){
         $this->middleware('auth');
     }
@@ -46,7 +50,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-    //    dd($request->all());
+    //dd($request->all());
 
        $password=Hash::make($request->password);
        $attribute=[
@@ -54,12 +58,12 @@ class UserController extends Controller
         'email'=>$request->email,
         'password'=>$password,
 
-     ];
 
-     $user= User::create($attribute);
+     ];
+        $user= User::create($attribute);
 
         Mail::to($user)->send(new SendMail($user));
-        // Notification::to($user)->send(new UserMail($user));
+        //Notification::to($user)->send(new UserMail($user));
 
           return redirect()->route('users.index');
 
@@ -88,8 +92,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findorfail($id);
+        $roles = Role::pluck('name', 'id');
+        $permissions = Permission::all('name', 'id');
 
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user', 'roles', 'permissions'));
 
     }
 
@@ -110,12 +116,7 @@ try{
             'password'=>$password,
 
         ];
-        /* $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
 
-        ]); */
         $user = User::findorfail($id);
         $user->notify(new UserMail);
         // dd('asdasd');

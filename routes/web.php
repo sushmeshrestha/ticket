@@ -1,7 +1,11 @@
 <?php
 use App\Notifications\UserMail;
 use App\Mail\SendMail;
+use Illuminate\Support\Facades\View;
 
+if (View::exists('roles.index')) {
+    //
+}
 
 
 /*
@@ -16,8 +20,9 @@ use App\Mail\SendMail;
 */
 
 Route::get('/', function () {
-    $user = App\User::find(2);
+    $user = App\User::find(4);
     $user->notify(new UserMail);
+
     return view('welcome');
 });
 
@@ -26,3 +31,7 @@ Route::resource('users', 'UserController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/email', 'HomeController@email')->name('sendEmail');
 Route::get('logout', 'Auth\LoginController@logout');
+Route::resource('roles', 'RoleController');
+Route::resource('posts', 'PostController');
+Route::resource('permissions','PermissionController');
+
