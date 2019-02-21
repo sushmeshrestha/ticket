@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Permission;
-use App\Role;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
@@ -20,15 +20,15 @@ class RoleController extends Controller
 
     public function index()
     {
-        $role = Role::all();
-        $permission = Permission::all();
-        return view('roles.index', compact('role', 'permission'));
+        $roles = Role::all();
+        return view('roles.index', compact('roles', 'permission'));
 
     }
 
     public function create()
     {
-        return view('roles.create');
+        $permissions = Permission::all();
+        return view('roles.create', compact('permissions'));
     }
 
     public function store(Request $request)
@@ -38,8 +38,7 @@ class RoleController extends Controller
        $password=Hash::make($request->password);
        $attribute=[
         'name'=>$request->name,
-        'email'=>$request->email,
-        'password'=>$password,
+
 
      ];
 
@@ -56,24 +55,20 @@ class RoleController extends Controller
       public function edit($id)
       {
           $role = Role::findorfail($id);
+          $permissions = Permission::all();
 
-          return view('roles.edit', compact('role'));
+          return view('roles.edit', compact('role', 'permissions'));
 
       }
       public function update(Request $request, $id)
       {
-        if($role = Role::findOrFail($id)) {
-            // admin role has everything
-            if($role->name === 'Admin') {
-                $role->syncPermissions(Permission::all());
-                return redirect()->route('roles.index');
-            }
-            $permissions = $request->get('permissions', []);
-            $role->syncPermissions($permissions);
-            flash( $role->name . ' permissions has been updated.');
-        } else {
-            flash()->error( 'Role with id '. $id .' note found.');
-        }
+        $password=Hash::make($request->password);
+        $attribute=[
+            'name'=>$request->name, ''.$id,
+        ];
+        $role = Role::findOrFail($id);
+        $role->update($attribute);
+
         return redirect()->route('roles.index');
     }
 

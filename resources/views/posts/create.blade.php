@@ -1,25 +1,39 @@
 @extends('layouts.app')
 
-@section('title', 'Create')
-
 @section('content')
 
-    <div class="row">
-        <div class="col-md-5">
-            <h3>Create</h3>
+
+
+<h1>Post Entry</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-        <div class="col-md-7 page-action text-right">
-            <a href="{{ route('posts.index') }}" class="btn btn-default btn-sm"> <i class="fa fa-arrow-left"></i> Back</a>
+    @endif
+
+
+
+{!! Form::open(['route' => 'posts.store', 'method' => 'post']) !!}
+
+    {!! csrf_field() !!}
+    <div class="form-group">
+            {{ Form::label('title', 'Title') }}
+            {{ Form::text('title', null, array('class' => 'form-control')) }}
+            <br>
+
+            {{ Form::label('body', 'Post Body') }}
+            {{ Form::textarea('body', null, array('class' => 'form-control')) }}
+            <br>
+
+            {{ Form::submit('Create Post', array('class' => 'btn btn-primary btn-lg btn-block')) }}
+            {{ Form::close() }}
+        </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            {!! Form::open(['route' => ['posts.store'] ]) !!}
-                @include('post.form')
-                <!-- Submit Form Button -->
-                {!! Form::submit('Create', ['class' => 'btn btn-primary']) !!}
-            {!! Form::close() !!}
-        </div>
-    </div>
-@endsection
+{!! Form::close() !!}
+@stop

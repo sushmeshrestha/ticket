@@ -1,36 +1,42 @@
-<!DOCTYPE html>
-<body>
-    <section class="content-header">
-    <h1> Update Page </h1>
-    </section>
-    <section class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                    <h3 class="box-title">Update Data</h3>
-                    </div>
-                        <form method="POST" action="{{route('users.update', $user->id)}}">
-                             {{ method_field("PATCH") }}
-                                 @csrf
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="name">UserName
-                                    </label>
-                                    <input type="text" name="name" class="form-control" placeholder="Enter Name" value ="{{$user->name}}">
-                                </div>
-                                <div class="form-group">
-                                    <label for= "email">Email</label>
-                                    <input type="text" name="email" class="form-control"  placeholder="Enter your email"  value="{{ $user->email }}">
-                                </div>
-                                <div>
-                                    <button class="btn btn-primary" type="submit">Update</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-    </section>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('title', '| Edit User')
+
+@section('content')
+
+<div class='col-lg-4 col-lg-offset-4'>
+
+    <h1><i class='fa fa-user-plus'></i> Edit {{$user->name}}</h1>
+    <hr>
+
+    {{ Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT')) }}{{-- Form model binding to automatically populate our fields with user data --}}
+
+    <div class="form-group">
+        {{ Form::label('name', 'Name') }}
+        {{ Form::text('name', null, array('class' => 'form-control')) }}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('email', 'Email') }}
+        {{ Form::email('email', null, array('class' => 'form-control')) }}
+    </div>
+
+    <h5><b>Give Role</b></h5>
+
+    <div class='form-group'>
+        @foreach ($roles as $role)
+            {{ Form::checkbox('roles[]',  $role->id, $user->roles ) }}
+            {{ Form::label($role->name, ucfirst($role->name)) }}<br>
+
+        @endforeach
+    </div>
+
+
+
+    {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
+
+    {{ Form::close() }}
+
+</div>
+
+@endsection

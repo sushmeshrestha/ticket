@@ -1,72 +1,72 @@
 @extends('layouts.app')
 
+@section('title', '| Add User')
+
 @section('content')
-
-
-
-<h1>User Entry</h1>
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
+        <div class='col-lg-4 col-lg-offset-4'>
 
+            <h1><i class='fa fa-user-plus'></i>Create User</h1>
+            <hr>
 
-{!! Form::open(['route' => 'users.store', 'method' => 'post']) !!}
+            {{ Form::open(array('url' => 'users')) }}
 
-    {!! csrf_field() !!}
-    <div class="container">
-    <div class="form-group row">
-         <label for="uname"><b>Username</label>
-        <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" required>
-        </div>
-    </div>
-    <div class="form-group row">
-            <label for="email">{{ __('E-Mail Address') }}</label>
+            <div class="form-group">
+                {{ Form::label('name', 'Name') }}
+                {{ Form::text('name', '', array('class' => 'form-control')) }}
+            </div>
 
-            <div class="col-md-6">
-                <input id="email" type="email" placeholder="Enter your Email-Id" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
+            <div class="form-group">
+                {{ Form::label('email', 'Email') }}
+                {{ Form::email('email', '', array('class' => 'form-control')) }}
                 @if ($errors->has('email'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('email') }}</strong>
                     </span>
                 @endif
             </div>
+
+            {{-- <div class='form-group'>
+                {{dd('sbsjs')}}
+
+                @foreach ($roles as $role)
+                    {{ Form::checkbox('roles[]',  $role->id ) }}
+                    {{ Form::label($role->name, ucfirst($role->name)) }}<br>
+
+                @endforeach
+            </div> --}}
+
+            <div class="form-group">
+                {{ Form::label('password', 'Password') }}<br>
+                {{ Form::password('password', array('class' => 'form-control')) }}
+                @if ($errors->has('password'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('password', 'Confirm Password') }}<br>
+                {{ Form::password('password_confirmation', array('class' => 'form-control')) }}
+
+            </div>
+
+            {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
+
+            {{ Form::close() }}
+
         </div>
 
-    <div class="form-group row">
-            <label for="password" >{{ __('Password') }}</label>
+        @endsection
 
-        <div class="col-sm-10">
-                <input id="password" type="password" placeholder="Enter your password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                @if ($errors->has('password'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                @endif
-            </div>
-
-    </div>
-    <div class="form-group row">
-            <label for="password-confirm">{{ __('Confirm Password') }}</label>
-        <div class="col-sm-10">
-                <input id="password-confirm" type="password" placeholder="Confirm your password" class="form-control" name="password_confirmation" required>
-            </div>
-    </div>
-
-    <div>
-    <button type="submit" class="pure-button pure-button-primary">Confirm</button>
-    </div>
-
-    </div>
-
-{!! Form::close() !!}
-@stop

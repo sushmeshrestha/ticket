@@ -20,7 +20,7 @@ if (View::exists('roles.index')) {
 */
 
 Route::get('/', function () {
-    $user = App\User::find(4);
+    $user = App\User::find(2);
     $user->notify(new UserMail);
 
     return view('welcome');
@@ -34,4 +34,16 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::resource('roles', 'RoleController');
 Route::resource('posts', 'PostController');
 Route::resource('permissions','PermissionController');
+Route::resource('tickets','TicketController');
+Route::get('new_ticket', 'TicketController@create');
+Route::post('new_ticket', 'TicketController@store');
+Route::get('my_tickets', 'TicketController@userTickets');
+Route::get('tickets/{ticket_id}', 'TicketController@show');
+Route::post('comment', 'CommentController@postComment');
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
+Route::post('tickets', 'TicketController@index');
+Route::post('close_ticket/{ticket_id}', 'TicketController@close');
+});
+
+
 

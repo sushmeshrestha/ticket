@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Role;
 use App\Permission;
 use App\Mail\SendMail;
 use App\Notifications\UserMail;
@@ -12,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -39,6 +39,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        global $roles;
+        $roles = Role::all();
         return view('users.create');
     }
 
@@ -61,6 +63,14 @@ class UserController extends Controller
 
      ];
         $user= User::create($attribute);
+        $roles = $request['roles'];
+        if (isset($roles)) {
+
+            foreach ($roles as $role) {
+            $role_r = Role::where('id', '=', $role)->firstOrFail();
+            $user->assignRole($role_r); //Assigning role to user
+            }
+        }
 
         Mail::to($user)->send(new SendMail($user));
         //Notification::to($user)->send(new UserMail($user));
@@ -91,8 +101,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findorfail($id);
-        $roles = Role::pluck('name', 'id');
+        $user = User::findOrFail($id);
+        $roles = Role::get();
         $permissions = Permission::all('name', 'id');
 
         return view('users.edit', compact('user', 'roles', 'permissions'));
@@ -118,9 +128,16 @@ try{
         ];
 
         $user = User::findorfail($id);
+        $roles = $request['roles'];
         $user->notify(new UserMail);
         // dd('asdasd');
         $user->update($attribute);
+        if (isset($roles)) {
+            $user->roles()->sync($roles);  //If one or more role is selected associate user to roles
+        }
+        else {
+            $user->roles()->detach(); //If no role is selected remove exisiting role associated to a user
+        }
 
         return redirect('/users');
     }catch( \Exception $e){

@@ -34,6 +34,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     public function routeNotificationForMail($notification)
     {
         return $this->email;

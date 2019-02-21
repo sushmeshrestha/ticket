@@ -19,10 +19,19 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         {!! Form::model($post, ['method' => 'PUT', 'route' => ['posts.update',  $post->id ] ]) !!}
-                            @include('posts.form')
-                            <!-- Submit Form Button -->
-                            {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
-                        {!! Form::close() !!}
+                        <div class="form-group">
+                                {{ Form::label('title', 'Title') }}
+                                {{ Form::text('title', null, array('class' => 'form-control')) }}<br>
+
+                                {{ Form::label('body', 'Post Body') }}
+                                {{ Form::textarea('body', null, array('class' => 'form-control')) }}<br>
+
+                             <!-- Submit Form Button -->
+                                {!! Form::submit('Save Changes', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::close() !!}
+
+                        </div>
+
                     </div>
                 </div>
             </div>
