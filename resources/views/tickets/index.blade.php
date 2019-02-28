@@ -8,7 +8,8 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-ticket"> Tickets</i>
+                    <i class="fa fa-ticket"> List of Tickets</i>
+                    <a href="{{ route('tickets.create') }}" class="btn btn-primary">Create a New Ticket</a>
                 </div>
 
                 <div class="panel-body">
@@ -46,11 +47,12 @@
                                     <td>{{ $ticket->updated_at }}</td>
                                     <td>
                                         @if($ticket->status === 'Open')
-                                            <a href="{{ url('tickets/' . $ticket->ticket_id) }}" class="btn btn-primary">Comment</a>
+                                            <a href="{{ url('tickets/' . $ticket->ticket_id) }}"  class="btn btn-primary">Comment</a>
+                                                {!! Form::open(['method' => 'DELETE', 'route' => ['tickets.destroy', $ticket->id],'style'=>'display:inline']) !!}
+                                                {!! Form::submit('Close', ['class' => 'btn btn-danger']) !!}
+                                                {!! Form::close() !!}
+                                                
 
-                                            <form action="{{ url('admin/close_ticket/' . $ticket->ticket_id) }}" method="POST">
-                                                {!! csrf_field() !!}
-                                                <button type="submit" class="btn btn-danger">Close</button>
                                             </form>
                                         @endif
                                     </td>

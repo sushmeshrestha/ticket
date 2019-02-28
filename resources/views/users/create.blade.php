@@ -35,16 +35,6 @@
                 @endif
             </div>
 
-            {{-- <div class='form-group'>
-                {{dd('sbsjs')}}
-
-                @foreach ($roles as $role)
-                    {{ Form::checkbox('roles[]',  $role->id ) }}
-                    {{ Form::label($role->name, ucfirst($role->name)) }}<br>
-
-                @endforeach
-            </div> --}}
-
             <div class="form-group">
                 {{ Form::label('password', 'Password') }}<br>
                 {{ Form::password('password', array('class' => 'form-control')) }}
@@ -61,6 +51,20 @@
                 {{ Form::password('password_confirmation', array('class' => 'form-control')) }}
 
             </div>
+
+
+            <h2>Assign Role</h2>
+
+
+            <div class='form-group'>
+                @foreach ($roles as $role)
+                    {{ Form::checkbox('roles[]',  $role->id ) }}
+                    {{ Form::label($role->name, ucfirst($role->name)) }}<br>
+
+                @endforeach
+
+            </div>
+
 
             {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
 

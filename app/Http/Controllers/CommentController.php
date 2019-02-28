@@ -8,23 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function postComment(Request $request, AppMailer $mailer)
+    public function store(Request $request)
     {
-        $this->validate($request, [
-            'comment' => 'required'
+    	$request->validate([
+            'body'=>'required',
         ]);
 
-        $comment = Comment::create([
-            'ticket_id' => $request->input('ticket_id'),
-            'user_id' => Auth::user()->id,
-            'comment' => $request->input('comment')
-        ]);
+        $input = $request->all();
+        $input['user_id'] = auth()->user()->id;
 
-        // send mail if the user commenting is not the ticket owner
-        if($comment->ticket->user->id !== Auth::user()->id) {
-            $mailer->sendTicketComments($comment->ticket->user, Auth::user(), $comment->ticket, $comment);
-        }
+        Comment::create($input);
 
-        return redirect()->back()->with("status", "Your comment has be submitted.");
+        return back();
     }
 }

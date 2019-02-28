@@ -1,10 +1,7 @@
 @extends('layouts.app')
-
+@section('title', '| Add Post')
 @section('content')
 
-
-
-<h1>Post Entry</h1>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -15,25 +12,26 @@
         </div>
     @endif
 
+    <div class='col-lg-4 col-lg-offset-4'>
 
+        {!! Form::open(['route' => 'posts.store', 'method' => 'post']) !!}
 
-{!! Form::open(['route' => 'posts.store', 'method' => 'post']) !!}
+            {!! csrf_field() !!}
+            <div class="form-group">
+                    {{ Form::label('title', 'Title') }}
+                    {{ Form::text('title', null, array('class' => 'form-control')) }}
+                    <br>
 
-    {!! csrf_field() !!}
-    <div class="form-group">
-            {{ Form::label('title', 'Title') }}
-            {{ Form::text('title', null, array('class' => 'form-control')) }}
-            <br>
+                    {{ Form::label('body', 'Post Body') }}
+                    {{ Form::textarea('body', null, array('class' => 'form-control')) }}
+                    <br>
 
-            {{ Form::label('body', 'Post Body') }}
-            {{ Form::textarea('body', null, array('class' => 'form-control')) }}
-            <br>
+                    {{ Form::submit('Create Post', array('class' => 'btn btn-primary')) }}
+                    {{ Form::close() }}
+                </div>
+                </div>
+            </div>
 
-            {{ Form::submit('Create Post', array('class' => 'btn btn-primary btn-lg btn-block')) }}
-            {{ Form::close() }}
-        </div>
-        </div>
+        {!! Form::close() !!}
     </div>
-
-{!! Form::close() !!}
 @stop

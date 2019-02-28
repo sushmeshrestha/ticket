@@ -20,16 +20,18 @@ if (View::exists('roles.index')) {
 */
 
 Route::get('/', function () {
-    $user = App\User::find(2);
+    $user = App\User::first();
     $user->notify(new UserMail);
 
     return view('welcome');
-});
+})->middleware('verified');
 
-Auth::routes();
+
+
+Auth::routes(['verify' => 'true']);
 Route::resource('users', 'UserController');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/email', 'HomeController@email')->name('sendEmail');
+// Route::get('/email', 'HomeController@email')->name('sendEmail');
 Route::get('logout', 'Auth\LoginController@logout');
 Route::resource('roles', 'RoleController');
 Route::resource('posts', 'PostController');
@@ -39,11 +41,8 @@ Route::get('new_ticket', 'TicketController@create');
 Route::post('new_ticket', 'TicketController@store');
 Route::get('my_tickets', 'TicketController@userTickets');
 Route::get('tickets/{ticket_id}', 'TicketController@show');
-Route::post('comment', 'CommentController@postComment');
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
-Route::post('tickets', 'TicketController@index');
-Route::post('close_ticket/{ticket_id}', 'TicketController@close');
-});
-
-
-
+Route::post('/comment', 'CommentController@postComment');
+// Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
+// Route::post('tickets', 'TicketController@index');
+// Route::post('close_ticket/{ticket_id}', 'TicketController@close');
+// });

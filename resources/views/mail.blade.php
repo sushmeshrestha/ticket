@@ -11,12 +11,13 @@
 
 
     <p>
-        You can view the ticket at any time at {{ url('tickets/') }}
+        You can view the ticket at any time at <a href="http://127.0.0.1:8000/tickets">Tickets</a>
     </p>
 
 
 
-<a href="http://127.0.0.1:8000/users">Username</a>
+    <p>
+        You can view your Name at any time at <a href="http://127.0.0.1:8000/users">Username</a> </p>
 
 </body>
 </html>

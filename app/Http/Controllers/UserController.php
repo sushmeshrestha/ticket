@@ -28,7 +28,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        $roles = Role::get();
+        $permissions=Permission::get();
+        return view('users.index', compact('users', 'roles', 'permissions'));
     }
 
 
@@ -39,9 +41,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        global $roles;
+
         $roles = Role::all();
-        return view('users.create');
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -64,6 +66,7 @@ class UserController extends Controller
      ];
         $user= User::create($attribute);
         $roles = $request['roles'];
+
         if (isset($roles)) {
 
             foreach ($roles as $role) {

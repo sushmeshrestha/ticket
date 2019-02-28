@@ -9,7 +9,7 @@
     <h1><i class='fa fa-user-plus'></i> Edit {{$user->name}}</h1>
     <hr>
 
-    {{ Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT')) }}{{-- Form model binding to automatically populate our fields with user data --}}
+    {{ Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT')) }}  {{-- Form model binding to automatically populate our fields with user data --}}
 
     <div class="form-group">
         {{ Form::label('name', 'Name') }}
@@ -33,7 +33,7 @@
 
 
 
-    {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
+    {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
 
     {{ Form::close() }}
 

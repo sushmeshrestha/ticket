@@ -68,8 +68,10 @@
          */
         public function show($id)
         {
-            $post=Post::all();
-            return view('posts.index', compact('post'));
+
+            $posts=Post::all();
+            return view('posts.index', compact('posts'));
+            dd(request()->all());
         }
 
         /**
@@ -97,8 +99,7 @@
          */
         public function update(Request $request, $id)
         {
-    try{
-            $password=Hash::make($request->password);
+
             $attribute=[
                 'title'=>$request->title,
                 'body'=>$request->body,
@@ -111,9 +112,8 @@
 
 
             return redirect('/posts');
-        }catch( \Exception $e){
-            dd($e);
-        }
+
+
         }
 
         /**

@@ -58,13 +58,13 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        $password=Hash::make($request->password);
         $attribute=[
             'title'     => 'required',
             'category'  => 'required',
             'priority'  => 'required',
             'message'   => 'required'
         ];
+
         $ticket = new Ticket([
             'title'     => $request->input('title'),
             'user_id'   => Auth::user()->id,
@@ -75,9 +75,6 @@ class TicketController extends Controller
             'status'    => "Open",
         ]);
         $ticket->save();
-
-        // Mail()->sendTicketInformation(Auth::user(), $ticket);
-
         return redirect()->route('tickets.index')->with("status", "A ticket with ID: #$ticket->ticket_id has been opened.");
 
 
@@ -141,6 +138,8 @@ class TicketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ticket = Ticket::find($id);
+        $ticket->delete();
+        return redirect('/tickets');
     }
 }
